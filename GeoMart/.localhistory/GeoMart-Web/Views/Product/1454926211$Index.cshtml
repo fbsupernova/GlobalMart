@@ -1,0 +1,86 @@
+﻿@model IEnumerable<GlobalMartWeb.VMModels.ProductVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+                      <div class="input-group">
+                          <input id="txtSearch" type="textbox" placeholder="Type Search Keyword" class="form-control-custom" /> <span class="input-group-btn">
+                              @*<button class="btn btn btn-primary" type="button"> Search  </button>*@
+                          </span>
+                      </div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#txtSearch").keyup(function () {
+            var value = this.value.toLowerCase().trim();
+            var url= "http://localhost:4381/api/v1/study/getproducts";
+
+            $.ajax({
+                url: url,
+                cache: false,
+                type: "get",                
+                success: function (result) {               
+                    alert(result);
+                }
+            });
+             
+            });
+        });
+
+ 
+
+
+</script>
